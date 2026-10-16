@@ -1,0 +1,8 @@
+{
+  "name": "Test Clinic",
+  "kind": "appointments",
+  "phone_number_id": "222",
+  "owner_whatsapp": "923008888888",
+  "hours": "4pm-10pm",
+  "catalog": [{ "name": "Checkup", "price": 1500 }]
+}

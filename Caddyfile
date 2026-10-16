@@ -1,0 +1,8 @@
+{$DOMAIN} {
+	encode gzip
+	header Strict-Transport-Security "max-age=31536000"
+	request_body {
+		max_size 5MB
+	}
+	reverse_proxy bot:3000
+}

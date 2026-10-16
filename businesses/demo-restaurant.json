@@ -1,0 +1,85 @@
+{
+  "slug": "demo-restaurant",
+  "enabled": true,
+  "name": "Lahori Tikka House",
+  "kind": "orders",
+  "city": "Lahore",
+  "about": "Family restaurant serving BBQ, karahi and fast food. Dine-in, takeaway and home delivery.",
+  "tone": "Use friendly desi phrases like 'ji', 'zaroor', 'shukriya'.",
+  "phone_number_id": "PUT_YOUR_TEST_PHONE_NUMBER_ID_HERE",
+  "owner_whatsapp": "923001234567",
+  "hours": "Daily 12pm to 1am",
+  "address": "Main Boulevard, Johar Town, Lahore",
+  "delivery": "Free delivery within 5 km on orders above Rs 1500, otherwise Rs 150. Delivery time 40-60 minutes.",
+  "payment": "Cash on delivery, JazzCash, Easypaisa",
+  "catalog": [
+    {
+      "name": "Chicken Tikka (leg piece)",
+      "price": 450
+    },
+    {
+      "name": "Chicken Karahi (half)",
+      "price": 1400
+    },
+    {
+      "name": "Chicken Karahi (full)",
+      "price": 2600
+    },
+    {
+      "name": "Mutton Karahi (half)",
+      "price": 2800
+    },
+    {
+      "name": "Seekh Kabab (4 pcs)",
+      "price": 700
+    },
+    {
+      "name": "Zinger Burger",
+      "price": 550
+    },
+    {
+      "name": "Fries (regular)",
+      "price": 250
+    },
+    {
+      "name": "Naan",
+      "price": 40
+    },
+    {
+      "name": "Garlic Naan",
+      "price": 90
+    },
+    {
+      "name": "Raita",
+      "price": 100
+    },
+    {
+      "name": "Soft Drink 1.5L",
+      "price": 250
+    }
+  ],
+  "faq": [
+    {
+      "q": "Is the food halal?",
+      "a": "Ji, 100% halal."
+    },
+    {
+      "q": "Do you take table reservations?",
+      "a": "Ji, family hall ke liye reservation hoti hai. Naam, date, time aur log kitne hon bata dein, team confirm karegi."
+    },
+    {
+      "q": "Is there parking?",
+      "a": "Ji, restaurant ke saamne free parking hai."
+    }
+  ],
+  "extra_rules": [
+    "Table reservations are not orders: collect the details, then set action handoff so the team confirms."
+  ],
+  "deals": [
+    {
+      "name": "Family Deal",
+      "price": 4200,
+      "details": "Chicken Karahi (full) + 6 Naan + Raita + Soft Drink 1.5L"
+    }
+  ]
+}

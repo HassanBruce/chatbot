@@ -1,0 +1,17 @@
+{
+  "name": "wabot",
+  "version": "1.0.0",
+  "description": "WhatsApp AI assistant for small businesses (multi-tenant, Gemini/OpenAI-compatible)",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node --no-warnings src/server.js",
+    "test": "node --no-warnings --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
