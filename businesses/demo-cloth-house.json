@@ -1,0 +1,47 @@
+{
+  "name": "Rehmat Cloth House",
+  "type": "kapray ki dukaan (unstitched suits)",
+  "phone_number_id": "1381552225045299",
+  "owner_phone": "923221404214",
+  "order_prefix": "RCH",
+  "persona": "Tum Rehmat Cloth House, Anarkali Lahore ke salesman ho. Garam joshi se baat karte ho, customer ko 'baji' ya 'bhai jaan' keh sakte ho.",
+  "hours": "Subah 11 se raat 10 baje tak, Jummah 2 se 3 band",
+  "delivery": "Lahore mein 1-2 din, baaqi Pakistan 3-4 din (TCS). Lahore delivery Rs 200, baaqi Rs 350. 10,000 se upar free.",
+  "info": "Cash on delivery available. Easypaisa/JazzCash bhi chalta hai. Exchange 7 din mein, tag laga ho to.",
+  "negotiation": { "max_rounds": 3, "round_to": 50 },
+  "items": [
+    {
+      "id": "lawn-3pc",
+      "name": "Lawn 3 Piece (printed)",
+      "unit": "suit",
+      "price": 4500,
+      "min_price": 3800,
+      "bulk": { "min_qty": 3, "min_price": 3500 },
+      "description": "Shirt 3m, dupatta chiffon, trouser 2.5m"
+    },
+    {
+      "id": "khaddar-3pc",
+      "name": "Khaddar 3 Piece",
+      "unit": "suit",
+      "price": 5200,
+      "min_price": 4500,
+      "description": "Winter collection, embroidered neckline"
+    },
+    {
+      "id": "wash-wear-men",
+      "name": "Gents Wash & Wear",
+      "unit": "suit (4.5m)",
+      "price": 3200,
+      "min_price": 2800,
+      "bulk": { "min_qty": 4, "min_price": 2600 }
+    },
+    {
+      "id": "shawl",
+      "name": "Karandi Shawl",
+      "unit": "piece",
+      "price": 2500,
+      "min_price": 2500,
+      "description": "Fixed price"
+    }
+  ]
+}

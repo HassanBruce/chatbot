@@ -1,8 +1,0 @@
-{
-  "name": "Test Shop",
-  "kind": "orders",
-  "phone_number_id": "111",
-  "owner_whatsapp": "+92 300 9999999",
-  "hours": "12pm-1am",
-  "catalog": [{ "name": "Chicken Karahi (half)", "price": 1400 }, { "name": "Naan", "price": 40 }]
-}
