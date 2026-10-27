@@ -3,7 +3,9 @@ import { findItem } from './businesses.js';
 import { evaluateOffer } from './negotiation.js';
 import { saveOrder } from './store.js';
 
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
+// Comma-separated list, tried in order: when one is rate-limited or overloaded, the next one answers.
+const GEMINI_MODELS = (process.env.GEMINI_MODEL || 'gemini-3.8-flash').split(',').map((m) => m.trim()).filter(Boolean);
+const MODEL_COOLDOWN_MS = 5 * 60 * 1000;
 const GEMINI_URL = (m) => `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`;
 
 const TOOLS = [
@@ -184,16 +186,43 @@ function runTool(name, args, ctx) {
   }
 }
 
-async function callGemini(body) {
-  const res = await fetch(GEMINI_URL(GEMINI_MODEL), {
+// model => time until which it is skipped (after a quota/overload error or timeout)
+const coolingDown = new Map();
+
+async function callModel(model, body) {
+  const res = await fetch(GEMINI_URL(model), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-goog-api-key': process.env.GEMINI_API_KEY },
     body: JSON.stringify(body),
-    // A stuck request would block this customer's queue forever; on timeout the customer gets the fallback reply.
+    // A stuck request would block this customer's queue forever; on timeout the next model is tried.
     signal: AbortSignal.timeout(Number(process.env.GEMINI_TIMEOUT_MS) || 25000),
   });
-  if (!res.ok) throw new Error(`Gemini ${res.status}: ${(await res.text()).slice(0, 500)}`);
+  if (!res.ok) {
+    const err = new Error(`Gemini ${model} ${res.status}: ${(await res.text()).slice(0, 300)}`);
+    err.retryable = res.status === 429 || res.status >= 500;
+    throw err;
+  }
   return res.json();
+}
+
+async function callGemini(body) {
+  const now = Date.now();
+  const ready = GEMINI_MODELS.filter((m) => !(coolingDown.get(m) > now));
+  // All cooling down: try them anyway rather than fail without asking.
+  const order = ready.length ? ready : GEMINI_MODELS;
+  let lastErr;
+  for (const model of order) {
+    try {
+      return await callModel(model, body);
+    } catch (err) {
+      const retryable = err.retryable || err.name === 'TimeoutError';
+      if (!retryable) throw err;
+      coolingDown.set(model, Date.now() + MODEL_COOLDOWN_MS);
+      console.warn(`[gemini] ${model} unavailable, trying next model:`, err.message.split('\n')[0]);
+      lastErr = err;
+    }
+  }
+  throw lastErr;
 }
 
 /** Process one customer message, return reply text. */
@@ -228,7 +257,8 @@ async function converse({ business, session, customer, text, notify, llm = callG
 
     const calls = content.parts.filter((p) => p.functionCall);
     if (!calls.length) {
-      return content.parts.map((p) => p.text || '').join('').trim() || '👍';
+      // Skip thinking parts (some models, e.g. Gemma, return them as text).
+      return content.parts.map((p) => (p.thought ? '' : p.text || '')).join('').trim() || '👍';
     }
 
     session.history.push({
