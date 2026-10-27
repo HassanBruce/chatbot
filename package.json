@@ -1,15 +1,16 @@
 {
   "name": "wabot",
   "version": "1.0.0",
-  "description": "WhatsApp AI assistant for small businesses (multi-tenant, Gemini/OpenAI-compatible)",
+  "description": "WhatsApp AI sales bot for small businesses — rates, bargaining, orders (WhatsApp Cloud API + Gemini)",
   "type": "module",
   "main": "src/server.js",
   "scripts": {
-    "start": "node --no-warnings src/server.js",
-    "test": "node --no-warnings --test test/*.test.js"
+    "start": "node --env-file-if-exists=.env src/server.js",
+    "chat": "node --env-file-if-exists=.env src/cli.js",
+    "test": "node --test test/*.test.js"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22.9"
   },
   "dependencies": {
     "express": "^4.21.2"

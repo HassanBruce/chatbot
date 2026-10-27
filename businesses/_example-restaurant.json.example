@@ -1,0 +1,26 @@
+{
+  "name": "Butt Karahi Point",
+  "type": "restaurant (dine-in + home delivery)",
+  "phone_number_id": "CLIENT_KA_PHONE_NUMBER_ID",
+  "access_token_env": "TOKEN_BUTT_KARAHI",
+  "owner_phone": "92300XXXXXXX",
+  "order_prefix": "BKP",
+  "persona": "Tum Butt Karahi Point ke order-taker ho. Mehmaan-nawazi wala lehja.",
+  "hours": "Dopahar 1 se raat 2 baje",
+  "delivery": "5 km tak free, 35-45 minute",
+  "info": "Karahi ka rate per kg hai, half kg bhi milti hai. Cash ya JazzCash.",
+  "negotiation": { "max_rounds": 2, "round_to": 50 },
+  "items": [
+    { "id": "chicken-karahi", "name": "Chicken Karahi", "unit": "kg", "price": 2400, "min_price": 2400 },
+    { "id": "mutton-karahi", "name": "Mutton Karahi", "unit": "kg", "price": 4800, "min_price": 4800 },
+    {
+      "id": "party-deal",
+      "name": "Party Deal (10 log)",
+      "unit": "deal",
+      "price": 18000,
+      "min_price": 16500,
+      "description": "2kg chicken karahi, 1kg mutton karahi, 20 naan, raita, salad, 2 x 1.5L drinks"
+    },
+    { "id": "naan", "name": "Roghni Naan", "unit": "piece", "price": 80, "min_price": 80 }
+  ]
+}

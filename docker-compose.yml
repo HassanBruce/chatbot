@@ -1,39 +1,11 @@
-x-logging: &logging
-  driver: json-file
-  options: { max-size: "10m", max-file: "3" }
-
 services:
-  bot:
+  wabot:
     build: .
+    container_name: wabot
     restart: unless-stopped
     env_file: .env
-    environment:
-      DATA_DIR: /app/data
-      BUSINESSES_DIR: /app/businesses
-    volumes:
-      - ./data:/app/data            # sqlite, media, daily backups (chown 1000:1000 ./data)
-      - ./businesses:/app/businesses:ro
-    expose:
-      - "3000"
-    stop_grace_period: 25s          # lets pending replies finish on deploy
-    logging: *logging
-
-  # Caddy gets a free HTTPS certificate automatically (Meta requires HTTPS webhooks)
-  caddy:
-    image: caddy:2-alpine
-    restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
-    environment:
-      DOMAIN: ${DOMAIN}
+      - "127.0.0.1:3000:3000"   # only nginx can reach it
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-    depends_on:
-      bot:
-        condition: service_healthy
-    logging: *logging
-
-volumes:
-  caddy_data:
+      - ./businesses:/app/businesses   # edit rates without rebuilding, then send #reload
+      - ./data:/app/data               # sessions + orders.jsonl
