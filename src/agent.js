@@ -189,6 +189,8 @@ async function callGemini(body) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-goog-api-key': process.env.GEMINI_API_KEY },
     body: JSON.stringify(body),
+    // A stuck request would block this customer's queue forever; on timeout the customer gets the fallback reply.
+    signal: AbortSignal.timeout(Number(process.env.GEMINI_TIMEOUT_MS) || 25000),
   });
   if (!res.ok) throw new Error(`Gemini ${res.status}: ${(await res.text()).slice(0, 500)}`);
   return res.json();
